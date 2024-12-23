@@ -21,7 +21,7 @@ export default function AiChatInterface() {
 
   useEffect(() => {
     if (conversationId) {
-      router.push(`/${conversationId}`);
+      router.push(`/chat/${conversationId}`);
     }
   }, [conversationId, router]);
 

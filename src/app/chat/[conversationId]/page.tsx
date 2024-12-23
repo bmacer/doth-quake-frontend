@@ -14,12 +14,7 @@ import {
   CardFooter,
   Heading,
   Flex,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogBody,
   useDisclosure,
-  DialogRoot,
 } from "@chakra-ui/react";
 import { useParams, useRouter } from "next/navigation";
 import { useChat } from "@/hooks/useChat";
@@ -27,6 +22,7 @@ import { getAiMessages } from "@/ai/ai-api";
 import { AiMessage } from "@/ai/ai-model";
 import { Avatar } from "@/components/ui/avatar";
 import { FaTrash } from "react-icons/fa";
+import { DeleteConfirmationModal } from "@/components/DeleteConfirmationModal.component";
 
 export default function AiChatWikiBot() {
   const params = useParams();
@@ -49,47 +45,6 @@ export default function AiChatWikiBot() {
     handleSubmit,
     handleQuestionClick,
   } = useChat(initialMessages);
-
-  const DeleteConfirmationModal = () => (
-    <DialogRoot open={open} onOpenChange={onClose}>
-      <DialogContent
-        position="fixed"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-        zIndex={1000}
-        border="1px solid black"
-        borderRadius="lg"
-        bgColor="white"
-        boxShadow="lg"
-      >
-        <DialogHeader fontFamily="Gnellen">Delete Conversation</DialogHeader>
-        <DialogBody fontFamily="Gnellen">
-          Are you sure you want to delete this conversation?
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            colorScheme="gray"
-            mr={3}
-            onClick={onClose}
-            fontFamily="Gnellen"
-          >
-            Cancel
-          </Button>
-          <Button
-            colorScheme="red"
-            onClick={() => {
-              handleDelete();
-              onClose();
-            }}
-            fontFamily="Gnellen"
-          >
-            Delete
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </DialogRoot>
-  );
 
   const handleDelete = () => {
     localStorage.removeItem("conversationId");
@@ -237,7 +192,11 @@ export default function AiChatWikiBot() {
             </VStack>
           </CardFooter>
         </Card.Root>
-        <DeleteConfirmationModal />
+        <DeleteConfirmationModal
+          open={open}
+          onClose={onClose}
+          handleDelete={handleDelete}
+        />
       </Flex>
     </Box>
   );

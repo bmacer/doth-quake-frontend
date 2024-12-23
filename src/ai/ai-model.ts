@@ -4,6 +4,7 @@ export interface AiMessage {
 }
 
 export interface AiConversation {
-  id: string;
-  messages: AiMessage[];
+  _id: string;
+  conversation: AiMessage[];
+  conversationId: string;
 }
