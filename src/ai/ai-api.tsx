@@ -1,7 +1,7 @@
 "use server";
 
 import { AiMessage } from "./ai-model";
-const API_AI_URL = process.env.API_AI_URL;
+import { API_AI_URL } from "@/lib/constants";
 
 export async function postAiMessage(conversationId: string, message: string) {
   const response = await fetch(`${API_AI_URL}/${conversationId}`, {
