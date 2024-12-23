@@ -19,7 +19,7 @@ export async function postAiMessage(conversationId: string, message: string) {
 export async function getAiMessages(
   conversationId: string
 ): Promise<AiMessage[]> {
-  let url = `${API_AI_URL}/history/${conversationId}`;
+  const url = `${API_AI_URL}/history/${conversationId}`;
   console.log("url", url);
   const response = await fetch(url, {
     method: "GET",
